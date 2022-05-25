@@ -5,11 +5,16 @@ def user_interface(options):
     """
     Дает пользователю выбрать камень ножницы или бумагу
     """
+
     for index, weapon in enumerate(options):
         print(f'{index} = {weapon}')
-
-    user_input = int(input("What do you choose?"))
-    return user_input
+    try:
+        user_input = int(input("What do you choose?\n"
+                               "========================>"))
+        return user_input
+    except ValueError:
+        print("              !ERROR!\n"
+              "Please use numbers to select weapon"), main()
 
 
 def computer_choise(content):
@@ -27,28 +32,35 @@ def check_result(choises, player, comp):
 
 
 def play():
-    print("=========================\n "
-          "Welcome my Game! \n"
-          "Please pick your weapon!\n ")
+    print("==========================\n "
+          "+++Welcome to my Game!+++ \n"
+          " +Please pick your weapon+\n "
+          "+++++++Good luck+++++++++\n"
+          "==========================\n")
     # Объявили список возможных вариантов для выбора
     options_list = ['Rock', 'Paper', 'Scissors']
     user_result = user_interface(options_list)
     computer_result = computer_choise(options_list)
 
     # Показываем выбор игрока и компьютера
-    print(f'player choose:{options_list[user_result]}')
-    print(f'computer chooser:{options_list[computer_result]}')
+    try:
+        print(f'Player choose:{options_list[user_result]}')
+        print(f'Computer chooser:{options_list[computer_result]}')
 
-    result = check_result(options_list, user_result, computer_result)
-    print(f'\n{result}')
+        result = check_result(options_list, user_result, computer_result)
+        print(f'\n{result}')
+    except IndexError:
+        print("              !ERROR!\n"
+              "Please choose from the proposed values")
+        play()
 
 
 def main():
     flag = ''
     while flag.lower() != 'n':
         play()
-        print('do you want to try again?')
-        flag = input('type y to continue or n to stop the game:')
+        print('Do you want to try again?')
+        flag = input('Press Enter to continue or N to stop the game:')
 
 
 main()
